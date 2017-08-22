@@ -1,0 +1,514 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package diemdanhsvhibernate;
+
+import DAO.*;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+import Entity.*;
+import java.util.*;
+
+/**
+ *
+ * @author ThanhNH
+ */
+public class frmMain extends javax.swing.JFrame {
+
+    /**
+     * Creates new form frmTaoMonHoc
+     */
+    public frmMain() {
+        initComponents();
+        countSubject();
+        countStudents();
+    }
+
+    String maND;
+    String tenND;
+    int maLoaiND;
+    String mk;
+
+    public frmMain(int maLoai1) {
+        initComponents();
+
+        this.maLoaiND = maLoai1;
+        System.out.println(maLoaiND);
+        LoadData();
+        countSubject();
+    }
+
+    public frmMain(String maNguoiDung, String tenNguoiDung, int maLoai, String matkhau) {
+        initComponents();
+
+        this.maND = maNguoiDung;
+        this.tenND = tenNguoiDung;
+        this.maLoaiND = maLoai;
+        this.mk = matkhau;
+        lbUsername.setText(tenND);
+        LoadData();
+        countSubject();
+        countStudents();
+    }
+    MonHocDAO mhDAO = new MonHocDAO();
+    Monhoc mh = new Monhoc();
+    NguoiDungDAO ndDAO = new NguoiDungDAO();
+    Nguoidung nd = new Nguoidung();
+
+    private void countSubject() {
+        if (maLoaiND == 1) {
+            String a = mhDAO.countSubject();
+
+            lbSoLuongMH.setText(a);
+        } else {
+            lbSoLuongMH.setText("N/A");
+        }
+    }
+
+    private void countStudents() {
+        if (maLoaiND == 1) {
+            String a = ndDAO.countStudents();
+
+            lbSoLuongSV.setText(a);
+        } else {
+            lbSoLuongSV.setText("N/A");
+        }
+    }
+
+    private void LoadData() {
+
+        if (maLoaiND == 1) {
+
+            mnSinhVien.setEnabled(false);
+            DefaultTableModel d = new DefaultTableModel();
+
+            d.addColumn("Mã Môn Học");
+            d.addColumn("Tên Môn Học");
+            d.addColumn("Ngày Bắt Đầu");
+            d.addColumn("Ngày Kết Thúc");
+            d.addColumn("Giờ Bắt Đầu");
+            d.addColumn("Giờ Kết Thúc");
+            d.addColumn("Thứ Trong Tuần");
+            d.addColumn("Tên Phòng Học");
+
+            for (Monhoc mh : mhDAO.getAll()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar cbd = Calendar.getInstance();
+                Calendar ckt = Calendar.getInstance();
+                Date ngay = mh.getNgayBd();
+                cbd.setTime(ngay);
+                ckt.setTime(ngay);
+                ckt.add(Calendar.DATE, 105);
+                String ngayBatDau = dateFormat.format(cbd.getTime());
+                String ngayKetThuc = dateFormat.format(ckt.getTime());
+                d.addRow(new Object[]{mh.getMaMonHoc(),
+                    mh.getTenMonHoc(),
+                    ngayBatDau,
+                    ngayKetThuc,
+                    mh.getGioBd(),
+                    mh.getGioKt(),
+                    mh.getThuTrongTuan(),
+                    mh.getTenPhongHoc()});
+            }
+            jTableMonHoc.setModel(d);
+            jTableMonHoc.setEnabled(false);
+            jTableMonHoc.getTableHeader().setReorderingAllowed(false);
+        } else {
+            DefaultTableModel d = new DefaultTableModel();
+
+            d.addColumn("Mã Môn Học");
+            d.addColumn("Tên Môn Học");
+            d.addColumn("Ngày Bắt Đầu");
+            d.addColumn("Ngày Kết Thúc");
+            d.addColumn("Giờ Bắt Đầu");
+            d.addColumn("Giờ Kết Thúc");
+            d.addColumn("Thứ Trong Tuần");
+            d.addColumn("Tên Phòng Học");
+
+            for (Monhoc mh : mhDAO.getAll()) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar cbd = Calendar.getInstance();
+                Calendar ckt = Calendar.getInstance();
+                Date ngay = mh.getNgayBd();
+                cbd.setTime(ngay);
+                ckt.setTime(ngay);
+                ckt.add(Calendar.DATE, 105);
+                String ngayBatDau = dateFormat.format(cbd.getTime());
+                String ngayKetThuc = dateFormat.format(ckt.getTime());
+                d.addRow(new Object[]{mh.getMaMonHoc(),
+                    mh.getTenMonHoc(),
+                    ngayBatDau,
+                    ngayKetThuc,
+                    mh.getGioBd(),
+                    mh.getGioKt(),
+                    mh.getThuTrongTuan(),
+                    mh.getTenPhongHoc()});
+            }
+            jTableMonHoc.setModel(d);
+            jTableMonHoc.setEnabled(false);
+            jTableMonHoc.getTableHeader().setReorderingAllowed(false);
+            mnGiaoVu.setEnabled(false);
+
+        }
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        btnPasswordChanged = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
+        lbUsername = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMonHoc = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lbSoLuongSV = new javax.swing.JLabel();
+        lbSoLuongMH = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnGiaoVu = new javax.swing.JMenu();
+        itemTaoMonHoc = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        mnSinhVien = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Màn Hình Chính");
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMaximumSize(new java.awt.Dimension(900, 550));
+        setMinimumSize(new java.awt.Dimension(900, 550));
+        setPreferredSize(new java.awt.Dimension(900, 550));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setLayout(null);
+
+        btnPasswordChanged.setBackground(new java.awt.Color(51, 51, 51));
+        btnPasswordChanged.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnPasswordChanged.setText("Đổi mật khẩu");
+        btnPasswordChanged.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnPasswordChanged.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasswordChangedActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPasswordChanged);
+        btnPasswordChanged.setBounds(540, 420, 150, 50);
+
+        btnLogOut.setBackground(new java.awt.Color(51, 51, 51));
+        btnLogOut.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLogOut.setText("Đăng xuất");
+        btnLogOut.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnLogOut);
+        btnLogOut.setBounds(700, 420, 151, 50);
+
+        lbUsername.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbUsername.setForeground(new java.awt.Color(204, 0, 0));
+        jPanel1.add(lbUsername);
+        lbUsername.setBounds(76, 11, 226, 26);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Xin chào ,");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(10, 11, 60, 26);
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 102));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách môn học", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel2.setMaximumSize(new java.awt.Dimension(880, 350));
+        jPanel2.setMinimumSize(new java.awt.Dimension(880, 350));
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(900, 350));
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(880, 330));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(880, 330));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(870, 330));
+
+        jTableMonHoc.setBackground(new java.awt.Color(204, 204, 204));
+        jTableMonHoc.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTableMonHoc.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã Môn Học", "Tên Môn Học", "Ngày Bắt Đầu", "Ngày Kết Thúc", "Giờ Bắt Đầu", "Giờ Kết Thúc", "Thứ", "Phòng Học"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMonHoc.setGridColor(new java.awt.Color(51, 51, 0));
+        jTableMonHoc.setMaximumSize(new java.awt.Dimension(870, 330));
+        jTableMonHoc.setMinimumSize(new java.awt.Dimension(870, 330));
+        jTableMonHoc.setPreferredSize(new java.awt.Dimension(880, 330));
+        jTableMonHoc.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        jScrollPane1.setViewportView(jTableMonHoc);
+        if (jTableMonHoc.getColumnModel().getColumnCount() > 0) {
+            jTableMonHoc.getColumnModel().getColumn(0).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(1).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(2).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(3).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(4).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(5).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(6).setResizable(false);
+            jTableMonHoc.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane1);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(10, 40, 880, 370);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("- Số lượng môn học");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 410, 130, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("- Số lượng sinh viên");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(20, 450, 140, 30);
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(160, 460, 0, 0);
+
+        lbSoLuongSV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbSoLuongSV.setForeground(new java.awt.Color(255, 0, 102));
+        jPanel1.add(lbSoLuongSV);
+        lbSoLuongSV.setBounds(160, 450, 110, 30);
+
+        lbSoLuongMH.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbSoLuongMH.setForeground(new java.awt.Color(255, 0, 102));
+        jPanel1.add(lbSoLuongMH);
+        lbSoLuongMH.setBounds(160, 410, 110, 30);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 905, 504));
+
+        jMenuBar1.setBackground(new java.awt.Color(51, 204, 255));
+        jMenuBar1.setBorder(new javax.swing.border.MatteBorder(null));
+        jMenuBar1.setForeground(new java.awt.Color(0, 255, 255));
+        jMenuBar1.setMaximumSize(new java.awt.Dimension(900, 30));
+        jMenuBar1.setMinimumSize(new java.awt.Dimension(900, 30));
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(900, 30));
+
+        mnGiaoVu.setForeground(new java.awt.Color(51, 0, 255));
+        mnGiaoVu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_giaovu.png"))); // NOI18N
+        mnGiaoVu.setText("Giáo Vụ");
+        mnGiaoVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        itemTaoMonHoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        itemTaoMonHoc.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        itemTaoMonHoc.setForeground(new java.awt.Color(51, 51, 51));
+        itemTaoMonHoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_taomonhoc.png"))); // NOI18N
+        itemTaoMonHoc.setText("Tạo Môn Học");
+        itemTaoMonHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemTaoMonHocActionPerformed(evt);
+            }
+        });
+        mnGiaoVu.add(itemTaoMonHoc);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jMenuItem1.setForeground(new java.awt.Color(51, 51, 51));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_themdanhsach.png"))); // NOI18N
+        jMenuItem1.setText("Thêm Danh Sách Sinh Viên Vào Môn Học");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnGiaoVu.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jMenuItem2.setForeground(new java.awt.Color(51, 51, 51));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_ketqua.png"))); // NOI18N
+        jMenuItem2.setText("Xem Kết Quả Điểm Danh Sinh Viên");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnGiaoVu.add(jMenuItem2);
+
+        jMenuBar1.add(mnGiaoVu);
+
+        mnSinhVien.setForeground(new java.awt.Color(102, 0, 51));
+        mnSinhVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_sinhvien.jpg"))); // NOI18N
+        mnSinhVien.setText("Sinh Viên");
+        mnSinhVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        jMenuItem3.setBackground(new java.awt.Color(51, 0, 51));
+        jMenuItem3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jMenuItem3.setForeground(new java.awt.Color(102, 102, 0));
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_diemdanh.png"))); // NOI18N
+        jMenuItem3.setText("Điểm Danh");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnSinhVien.add(jMenuItem3);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem4.setBackground(new java.awt.Color(51, 0, 51));
+        jMenuItem4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jMenuItem4.setForeground(new java.awt.Color(102, 102, 0));
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Picture/icon_ketquadiemdanh.jpg"))); // NOI18N
+        jMenuItem4.setText("Xem Kết Quả Điểm Danh");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnSinhVien.add(jMenuItem4);
+
+        jMenuBar1.add(mnSinhVien);
+
+        setJMenuBar(jMenuBar1);
+
+        getAccessibleContext().setAccessibleName("Main");
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void itemTaoMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTaoMonHocActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmTaoMonHoc taoMH = new frmTaoMonHoc(maND, tenND, maLoaiND, mk);
+        taoMH.setVisible(true);
+    }//GEN-LAST:event_itemTaoMonHocActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmThemDanhSachSV themSV = new frmThemDanhSachSV(maND, tenND, maLoaiND, mk);
+        themSV.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmKetQuaDiemDanh kqua = new frmKetQuaDiemDanh(maND, tenND, maLoaiND, mk);
+        kqua.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmDiemDanh diemDanh = new frmDiemDanh(maND, tenND, maLoaiND, mk);
+        diemDanh.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmKetQuaDiemDanh kqua = new frmKetQuaDiemDanh(maND, tenND, maLoaiND, mk);
+        kqua.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        frmLogin login = new frmLogin();
+        login.setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnPasswordChangedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordChangedActionPerformed
+        // TODO add your handling code here:
+        frmPasswordChanged pc = new frmPasswordChanged(maND, tenND, maLoaiND, mk);
+        this.setVisible(false);
+        pc.setVisible(true);
+    }//GEN-LAST:event_btnPasswordChangedActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frmMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //</editor-fold>
+                new frmMain().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnPasswordChanged;
+    private javax.swing.JMenuItem itemTaoMonHoc;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableMonHoc;
+    private javax.swing.JLabel lbSoLuongMH;
+    private javax.swing.JLabel lbSoLuongSV;
+    private javax.swing.JLabel lbUsername;
+    private javax.swing.JMenu mnGiaoVu;
+    private javax.swing.JMenu mnSinhVien;
+    // End of variables declaration//GEN-END:variables
+}

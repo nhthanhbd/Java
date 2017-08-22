@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 17, 2017 7:16:06 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entity.Monhoc" table="monhoc" catalog="diemdanhsv" optimistic-lock="version">
+        <id name="maMonHoc" type="string">
+            <column name="MaMonHoc" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="tenMonHoc" type="string">
+            <column name="TenMonHoc" length="50" />
+        </property>
+        <property name="ngayBd" type="date">
+            <column name="NgayBD" length="10" />
+        </property>
+        <property name="thuTrongTuan" type="string">
+            <column name="ThuTrongTuan" length="50" />
+        </property>
+        <property name="gioBd" type="time">
+            <column name="GioBD" length="8" />
+        </property>
+        <property name="gioKt" type="time">
+            <column name="GioKT" length="8" />
+        </property>
+        <property name="tenPhongHoc" type="string">
+            <column name="TenPhongHoc" length="20" />
+        </property>
+        <set name="sinhvienmonhocs" table="sinhvienmonhoc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MaMH" length="50" not-null="true" />
+            </key>
+            <one-to-many class="Entity.Sinhvienmonhoc" />
+        </set>
+    </class>
+</hibernate-mapping>

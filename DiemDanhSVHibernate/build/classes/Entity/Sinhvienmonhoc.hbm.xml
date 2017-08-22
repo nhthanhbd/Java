@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 17, 2017 7:16:06 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Entity.Sinhvienmonhoc" table="sinhvienmonhoc" catalog="diemdanhsv" optimistic-lock="version">
+        <composite-id name="id" class="Entity.SinhvienmonhocId">
+            <key-property name="maSv" type="string">
+                <column name="MaSV" length="100" />
+            </key-property>
+            <key-property name="maMh" type="string">
+                <column name="MaMH" length="50" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="monhoc" class="Entity.Monhoc" update="false" insert="false" fetch="select">
+            <column name="MaMH" length="50" not-null="true" />
+        </many-to-one>
+        <many-to-one name="nguoidung" class="Entity.Nguoidung" update="false" insert="false" fetch="select">
+            <column name="MaSV" length="100" not-null="true" />
+        </many-to-one>
+        <property name="tuan1" type="java.lang.Boolean">
+            <column name="Tuan1" />
+        </property>
+        <property name="tuan2" type="java.lang.Boolean">
+            <column name="Tuan2" />
+        </property>
+        <property name="tuan3" type="java.lang.Boolean">
+            <column name="Tuan3" />
+        </property>
+        <property name="tuan4" type="java.lang.Boolean">
+            <column name="Tuan4" />
+        </property>
+        <property name="tuan5" type="java.lang.Boolean">
+            <column name="Tuan5" />
+        </property>
+        <property name="tuan6" type="java.lang.Boolean">
+            <column name="Tuan6" />
+        </property>
+        <property name="tuan7" type="java.lang.Boolean">
+            <column name="Tuan7" />
+        </property>
+        <property name="tuan8" type="java.lang.Boolean">
+            <column name="Tuan8" />
+        </property>
+        <property name="tuan9" type="java.lang.Boolean">
+            <column name="Tuan9" />
+        </property>
+        <property name="tuan10" type="java.lang.Boolean">
+            <column name="Tuan10" />
+        </property>
+        <property name="tuan11" type="java.lang.Boolean">
+            <column name="Tuan11" />
+        </property>
+        <property name="tuan12" type="java.lang.Boolean">
+            <column name="Tuan12" />
+        </property>
+        <property name="tuan13" type="java.lang.Boolean">
+            <column name="Tuan13" />
+        </property>
+        <property name="tuan14" type="java.lang.Boolean">
+            <column name="Tuan14" />
+        </property>
+        <property name="tuan15" type="java.lang.Boolean">
+            <column name="Tuan15" />
+        </property>
+    </class>
+</hibernate-mapping>
